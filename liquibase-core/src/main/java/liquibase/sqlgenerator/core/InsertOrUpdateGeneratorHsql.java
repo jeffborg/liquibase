@@ -50,14 +50,14 @@ public class InsertOrUpdateGeneratorHsql extends InsertOrUpdateGenerator {
 
 	@Override
 	protected String getElse(Database database) {
-		return " WHEN MATCHED THEN ";
+		return " ";
 	}
 
 	@Override
 	protected String getUpdateStatement(InsertOrUpdateStatement insertOrUpdateStatement, Database database,
 			String whereClause, SqlGeneratorChain sqlGeneratorChain) {
 
-		StringBuilder sql = new StringBuilder("UPDATE SET ");
+		StringBuilder sql = new StringBuilder(" WHEN MATCHED THEN UPDATE SET ");
 
 		String[] pkFields = insertOrUpdateStatement.getPrimaryKey().split(",");
 		HashSet<String> hashPkFields = new HashSet<String>(Arrays.asList(pkFields));
@@ -67,6 +67,9 @@ public class InsertOrUpdateGeneratorHsql extends InsertOrUpdateGenerator {
 				sql.append(convertToString(insertOrUpdateStatement.getColumnValue(columnKey), database));
 				sql.append(",");
 			}
+		}
+		if(sql.lastIndexOf(",")==1) {
+			return " ";
 		}
 		sql.deleteCharAt(sql.lastIndexOf(","));
 		return sql.toString();
