@@ -68,7 +68,7 @@ public class InsertOrUpdateGeneratorHsql extends InsertOrUpdateGenerator {
 				sql.append(",");
 			}
 		}
-		if(sql.lastIndexOf(",")==1) {
+		if(sql.lastIndexOf(",")==-1) {
 			return " ";
 		}
 		sql.deleteCharAt(sql.lastIndexOf(","));
