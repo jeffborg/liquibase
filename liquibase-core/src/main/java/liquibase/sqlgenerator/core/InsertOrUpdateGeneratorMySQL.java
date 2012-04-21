@@ -68,7 +68,7 @@ public class InsertOrUpdateGeneratorMySQL extends InsertOrUpdateGenerator {
 
     private String convertToString(Object newValue, Database database) {
         String sqlString;
-        if (newValue == null || newValue.toString().equals("") || newValue.toString().equalsIgnoreCase("NULL")) {
+        if (newValue == null || newValue.toString().equalsIgnoreCase("NULL")) {
             sqlString = "NULL";
         } else if (newValue instanceof String && database.shouldQuoteValue(((String) newValue))) {
             sqlString = "'" + database.escapeStringForDatabase(newValue.toString()) + "'";
